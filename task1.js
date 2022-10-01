@@ -1,0 +1,42 @@
+const xmlString= `
+<list>
+  <student>
+    <name lang="en">
+      <first>Ivan</first>
+      <second>Ivanov</second>
+    </name>
+    <age>35</age>
+    <prof>teacher</prof>
+  </student>
+  <student>
+    <name lang="ru">
+      <first>Петр</first>
+      <second>Петров</second>
+    </name>
+    <age>58</age>
+    <prof>driver</prof>
+  </student>
+</list>
+`; // XML, который мы будем парсить
+
+const parser = new DOMParser(); // Создание экземпляра класса DOMParser. Он позволит нам парсить XML
+const xmlDOM = parser.parseFromString(xmlString, "text/xml");
+
+const name = xmlDOM.querySelector("name");
+const students = xmlDOM.querySelectorAll("student");
+
+let result=[];
+
+students.forEach(node => {
+    let student = {
+    name: node.querySelector("first").textContent + " " + node.querySelector("second").textContent,
+    age: node.querySelector("age").textContent,
+    prof: node.querySelector("prof").textContent,
+    lang: node.querySelector("name").getAttribute("lang")
+    };
+    result.push(student);
+});
+
+  console.log(result);
+
+  
